@@ -14,6 +14,8 @@ namespace pryZarateConexionBD
 {
     public partial class frmPrincipal : Form
     {
+        private ClassConectionBD objConectarBD;
+
         public frmPrincipal()
         {
             InitializeComponent();
@@ -21,40 +23,32 @@ namespace pryZarateConexionBD
       
         private void frmPrincipal_Load_1(object sender, EventArgs e)
         {
-            ClassConectionBD objConectarBD = new ClassConectionBD();
+            objConectarBD = new ClassConectionBD();
             try
             {
                 objConectarBD.ConectarBD();
                 lblEstadoConexión.BackColor = Color.Green;
                 lblEstadoConexión.Text = "Ningun error al conectar a la base de datos";
+
+                // Obtener datos y asignarlos a la grilla
+                DataTable dt = objConectarBD.ObtenerTablaPrincipal();
+                dataGridView1.DataSource = dt;
             }
-            catch
+            catch (Exception ex)
             {
                 lblEstadoConexión.BackColor = Color.Red;
-                lblEstadoConexión.Text = "Error al conectar a la base de datos";
-
+                lblEstadoConexión.Text = "Error al conectar a la base de datos: " + ex.Message;
             }
-private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // 2. Configurar el comando para traer la tabla
-            OleDbCommand cmd = new OleDbCommand();
-            cmd.Connection = cnn;
-            cmd.CommandType = CommandType.TableDirect;
-            cmd.CommandText = "La tabla";
-
-            // 3. Usar el DataAdapter para llenar el DataSet
-            OleDbDataAdapter da = new OleDbDataAdapter(cmd);
-            DataSet ds = new DataSet();
-
-            da.Fill(ds, "La tabla");
-
-            // 4. Vincular el resultado a la grilla (DataGridView)
-            // Las fuentes indican que al asignar el DataSource, las columnas se crean automáticamente
-            dgvDatos.DataSource = ds.Tables["La tabla"];
+            finally
+            {
+                // La grilla muestra los datos en memoria, podemos cerrar la conexión
+                try { objConectarBD?.CerrarBD(); } catch { }
+            }
         }
-        catch (Exception ex) {
-        MessageBox.Show("Error al cargar datos: " + ex.Message);
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+           
         }
     }
 }
-    
