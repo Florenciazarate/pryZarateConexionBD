@@ -17,4 +17,5 @@ namespace pryZarateConexionBD
             Application.Run(new frmInicioSesion());
         }
     }
+
 }

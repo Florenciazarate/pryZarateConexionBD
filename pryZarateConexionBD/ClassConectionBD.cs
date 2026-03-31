@@ -113,3 +113,43 @@ namespace pryZarateConexionBD
         }
     }
 }
+
+
+//try
+//{
+ //   conn = new OleDbConnection();
+   // conn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;" +
+     //   " Data Source=" + Application.StartupPath + "\\..\\..\\BaseDatos\\baseJuegoRPG.accdb";
+    //conn.Open();
+
+    //OleDbCommand cmd = new OleDbCommand();
+    //cmd.Connection = conn;
+   // cmd.CommandType = CommandType.TableDirect;
+ //   cmd.CommandText = "jugador";
+
+    //using (var cmd = new OleDbCommand("SELECT * FROM jugador", conn))
+
+//    OleDbDataReader reader = cmd.ExecuteReader();
+
+    //reader = cmd.ExecuteReader();
+
+  //  if (reader.HasRows)
+    //{
+      //  while (reader.Read())
+        //{
+          //  if (usuario == reader.GetString(3) && contrasena == reader.GetString(2))
+            //{
+              //  MessageBox.Show("Bienvenido " + reader.GetString(2));
+                //break;
+            //}
+        //}
+
+//    }
+
+
+  //  conn.Close();
+//}
+//catch (Exception error)
+//{
+
+//}
