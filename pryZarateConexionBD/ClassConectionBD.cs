@@ -20,7 +20,6 @@ namespace pryZarateConexionBD
             conn.Open();
         }
 
-        // Returns the first non-system table as a DataTable (or empty DataTable if none)
         public DataTable ObtenerTablaPrincipal()
         {
             if (conn == null)
@@ -28,7 +27,6 @@ namespace pryZarateConexionBD
 
             DataTable result = new DataTable();
 
-            // Get user tables from the database schema
             DataTable schema = conn.GetSchema("Tables");
             string tableName = null;
             foreach (DataRow row in schema.Rows)
@@ -58,6 +56,60 @@ namespace pryZarateConexionBD
         {
             if (conn != null && conn.State == ConnectionState.Open)
                 conn.Close();
+        }
+
+
+        public bool TryValidateUser(string mail, string password, out string errorMessage)
+        {
+            errorMessage = null;
+            try
+            {
+                if (conn == null)
+                    ConectarBD();
+
+                DataTable dt = ObtenerTablaPrincipal();
+                if (dt == null || dt.Columns.Count == 0)
+                {
+                    errorMessage = "No se encontró la tabla de usuarios en la base de datos.";
+                    return false;
+                }
+
+                string mailCol = null;
+                string passCol = null;
+
+                foreach (DataColumn col in dt.Columns)
+                {
+                    string name = col.ColumnName.ToLower();
+                    if (mailCol == null && (name.Contains("mail") || name.Contains("email") || name.Contains("usuario") || name.Contains("user")))
+                        mailCol = col.ColumnName;
+                    if (passCol == null && (name.Contains("pass") || name.Contains("contr") || name.Contains("clave") || name.Contains("password")))
+                        passCol = col.ColumnName;
+                }
+
+                if (mailCol == null || passCol == null)
+                {
+                    errorMessage = "No se encontraron las columnas de mail y/o contraseña en la tabla.";
+                    return false;
+                }
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    string dbMail = row[mailCol]?.ToString()?.Trim();
+                    string dbPass = row[passCol]?.ToString()?.Trim();
+                    if (string.Equals(dbMail, mail, StringComparison.OrdinalIgnoreCase) && dbPass == password)
+                    {
+                        return true;
+                    }
+                }
+
+                errorMessage = "Mail o contraseña incorrecta.";
+                return false;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Error al validar usuario: " + ex.Message;
+                return false;
+            }
         }
     }
 }

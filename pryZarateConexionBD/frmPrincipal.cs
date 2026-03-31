@@ -30,7 +30,6 @@ namespace pryZarateConexionBD
                 lblEstadoConexión.BackColor = Color.Green;
                 lblEstadoConexión.Text = "Ningun error al conectar a la base de datos";
 
-                // Obtener datos y asignarlos a la grilla
                 DataTable dt = objConectarBD.ObtenerTablaPrincipal();
                 dataGridView1.DataSource = dt;
             }
@@ -41,7 +40,6 @@ namespace pryZarateConexionBD
             }
             finally
             {
-                // La grilla muestra los datos en memoria, podemos cerrar la conexión
                 try { objConectarBD?.CerrarBD(); } catch { }
             }
         }
