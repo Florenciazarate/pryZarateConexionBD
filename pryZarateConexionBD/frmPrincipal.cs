@@ -31,7 +31,7 @@ namespace pryZarateConexionBD
                 lblEstadoConexión.Text = "Ningun error al conectar a la base de datos";
 
                 DataTable dt = objConectarBD.ObtenerTablaPrincipal();
-                dataGridView1.DataSource = dt;
+                dgvConexion.DataSource = dt;
             }
             catch (Exception ex)
             {
@@ -42,11 +42,6 @@ namespace pryZarateConexionBD
             {
                 try { objConectarBD?.CerrarBD(); } catch { }
             }
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-           
         }
     }
 }

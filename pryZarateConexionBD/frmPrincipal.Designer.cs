@@ -31,18 +31,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPrincipal));
             this.ConexionDB = new System.Windows.Forms.StatusStrip();
             this.lblEstadoConexión = new System.Windows.Forms.ToolStripStatusLabel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvConexion = new System.Windows.Forms.DataGridView();
             this.ConexionDB.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvConexion)).BeginInit();
             this.SuspendLayout();
             // 
             // ConexionDB
             // 
             this.ConexionDB.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblEstadoConexión});
-            this.ConexionDB.Location = new System.Drawing.Point(0, 428);
+            this.ConexionDB.Location = new System.Drawing.Point(0, 330);
             this.ConexionDB.Name = "ConexionDB";
-            this.ConexionDB.Size = new System.Drawing.Size(800, 22);
+            this.ConexionDB.Size = new System.Drawing.Size(719, 22);
             this.ConexionDB.TabIndex = 0;
             this.ConexionDB.Text = "statusStrip1";
             // 
@@ -52,31 +52,33 @@
             this.lblEstadoConexión.Size = new System.Drawing.Size(57, 17);
             this.lblEstadoConexión.Text = "Conexion";
             // 
-            // dataGridView1
+            // dgvConexion
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.SeaShell;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(86, 63);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(638, 291);
-            this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dgvConexion.BackgroundColor = System.Drawing.Color.DarkKhaki;
+            this.dgvConexion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvConexion.Location = new System.Drawing.Point(41, 21);
+            this.dgvConexion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dgvConexion.Name = "dgvConexion";
+            this.dgvConexion.Size = new System.Drawing.Size(638, 291);
+            this.dgvConexion.TabIndex = 1;
             // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.OldLace;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.BackColor = System.Drawing.Color.Cornsilk;
+            this.ClientSize = new System.Drawing.Size(719, 352);
+            this.Controls.Add(this.dgvConexion);
             this.Controls.Add(this.ConexionDB);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmPrincipal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Conexión Base de Datos en Access";
             this.Load += new System.EventHandler(this.frmPrincipal_Load_1);
             this.ConexionDB.ResumeLayout(false);
             this.ConexionDB.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvConexion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -86,7 +88,7 @@
 
         private System.Windows.Forms.StatusStrip ConexionDB;
         private System.Windows.Forms.ToolStripStatusLabel lblEstadoConexión;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvConexion;
     }
 }
 
