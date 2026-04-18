@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -25,6 +27,7 @@ namespace pryZarateConexionBD
         private void frmInicioSesion_Load(object sender, EventArgs e)
         {
             objConectarBD = new ClassConectionBD();
+            CargarUsuarios();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -70,6 +73,21 @@ namespace pryZarateConexionBD
             {
                 lblError.ForeColor = Color.Red;
                 lblError.Text = "Error al conectar/validar: " + ex.Message;
+            }
+        }
+        private void CargarUsuarios()
+        {
+            string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" 
+                          + Application.StartupPath
+                          + @"\..\..\BaseDatos\basejuegoRPG.accdb";
+            string query = "SELECT mail, contraseña FROM jugador";
+
+            using (OleDbConnection con = new OleDbConnection(connectionString))
+            {
+                OleDbDataAdapter da = new OleDbDataAdapter(query, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dgvPrueba.DataSource = dt;
             }
         }
     }
