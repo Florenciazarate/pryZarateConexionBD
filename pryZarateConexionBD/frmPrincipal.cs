@@ -1,46 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System;
 using System.Data;
-using System.Data.OleDb;
 using System.Drawing;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace pryZarateConexionBD
 {
     public partial class frmPrincipal : Form
     {
-        private ClassConectionBD objConectarBD;
-
         public frmPrincipal()
         {
             InitializeComponent();
         }
-      
-        private void frmPrincipal_Load_1(object sender, EventArgs e)
-        {
-            objConectarBD = new ClassConectionBD();
-            try
-            {
-                objConectarBD.ConectarBD();
-                lblEstadoConexión.BackColor = Color.Green;
-                lblEstadoConexión.Text = "Ningun error al conectar a la base de datos";
 
-                DataTable dt = objConectarBD.ObtenerTablaPrincipal();
-                dgvConexion.DataSource = dt;
-            }
-            catch (Exception ex)
+        private void frmPrincipal_Load(object sender, EventArgs e)
+        {
+            string error;
+            if (BaseDatos.ProbarConexion(out error)) // Pruebo la conexion a la base.
             {
-                lblEstadoConexión.BackColor = Color.Red;
-                lblEstadoConexión.Text = "Error al conectar a la base de datos: " + ex.Message;
+                lblEstadoConexion.ForeColor = Color.LimeGreen;
+                lblEstadoConexion.Text = "Conectado a la base de datos correctamente.";
+
+                DataTable jugadores = BaseDatos.ObtenerJugadores(); // Traigo todos los jugadores.
+                dgvJugadores.DataSource = jugadores; // Los muestro en la grilla.
             }
-            finally
+            else
             {
-                try { objConectarBD?.CerrarBD(); } catch { }
+                lblEstadoConexion.ForeColor = Color.IndianRed;
+                lblEstadoConexion.Text = "Error al conectar: " + error;
             }
         }
     }
